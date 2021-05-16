@@ -383,10 +383,10 @@ class Symbols:
         if len(self.background_color) == 4 and self.background_color[3] != 255:
             # I don't know exactly why there are artifacts, but oh well.
             # Transparent backgrounds don't seem useful or commonly supported
-            # (GIF might be the main exception).
+            # anyway (GIF might be the main exception).
             warnings.warn(
-                "Background color must be opaque or artifacts will appear. "
-                f"Removing alpha of {self.background_color[-1]} from {background_color}."
+                "Background color must be opaque or aliasing/artifacts will "
+                f"appear. Removing alpha from {background_color}."
             )
             self.background_color = self.background_color[:3]
 
@@ -397,7 +397,7 @@ class Symbols:
             name = symbol["SN"]
             layers = symbol["TL"]["L"]
             # I hope that symbol names are unique
-            assert name not in self.timelines, "Symbol names should be unique"
+            assert name not in self.timelines, f"Symbol name `{name}` isn't unique"
             self.timelines[name] = layers
 
         # For convenience, we use None to store the main symbol. You could use
