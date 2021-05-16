@@ -1,3 +1,7 @@
+# This script operates on the optimized Animation.json, which uses acronyms for
+# all of its keys and values. See the bottom of this file for a glossary.
+
+
 if __name__ == "__main__":
     import argparse
 
@@ -660,3 +664,92 @@ if __name__ == "__main__":
         RESAMPLE_FILTERS[args.resample],
     )
     animation.render(args.out_file, args.codec, args.width, args.height)
+
+
+# Optimized Animation.json glossary
+# =================================
+#
+# A bare name is a key. Brackets mean the key's value is an array. A quoted
+# name is a string value. A star after a name means that it's further defined
+# in its own section. Not all keys are always present or used in this script.
+#
+# Top-level keys
+# --------------
+#
+# AN: Animation (the symbol exported as a texture atlas)
+#   N: Name of Animate project
+#   SN: Symbol name
+#   TL: Timeline*
+# SD: Symbol dictionary
+#   S[]: Symbols
+#     SN: Symbol name
+#     TL: Timeline*
+# MD: Metadata
+#   FRT: Frame rate
+#
+# Timeline
+# --------
+#
+# TL: Timeline
+#   L[]: Layers
+#     LN: Layer name
+#     LT: Layer type
+#       "Clp": Clipper (mask layer)
+#     Clpb: Clipped (masked) by
+#     FR[]: Frames
+#       I: Start index
+#       DU: Duration
+#       N: Name
+#       E[]: Elements
+#         SI: Symbol instance
+#           SN: Symbol name
+#           IN: Instance name
+#           ST: Symbol type
+#             "G": Graphic
+#             (Not sure what the other abbreviations are, but they're probably
+#             straightforward, e.g. "M" or "MC" for movie clip.)
+#           FF: First frame
+#           LP: Loop type
+#             "LP": Loop
+#             "PO": Play once
+#             "SF": Single frame
+#           TRP: Transformation point
+#             x: x-coordinate
+#             y: y-coordinate
+#           M3D[]: Matrix3D
+#           C: Color effect*
+#         ASI: Atlas sprite instance
+#           N: Name
+#           M3D[]: Matrix3D
+#
+# Color effects
+# -------------
+#
+# C: Color effect
+#   M: Mode
+#     "AD": Advanced
+#     "CA": Alpha
+#     "CBRT": Brightness
+#     "T": Tint
+#
+# The other keys under "C" depend on the mode:
+#
+# Advanced
+#   AM: Alpha multiplier
+#   AO: Alpha offset
+#   BM: Blue multiplier
+#   BO: Blue offset
+#   GM: Green multiplier
+#   GO: Green offset
+#   RM: Red multiplier
+#   RO: Red offset
+#
+# Alpha
+#   AM: Alpha multiplier
+#
+# Brightness
+#   BRT: Brightness
+#
+# Tint
+#   TC: Tint color
+#   TM: Tint multiplier
