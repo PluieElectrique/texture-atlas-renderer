@@ -30,12 +30,13 @@ You can change the canvas size (the animation is always centered in the canvas),
 python render.py --width 1280 --height 720 --background-color "#fff" --codec x265 animation-dir output.mp4
 ```
 
-There's also a `--resample` option, which can be `nearest`, `bilinear` (the default), or `bicubic`. I recommend leaving it at `bilinear`, as `nearest` is low quality and `bicubic` can add white pixels on the borders of sprites. Of course, your results may differ.
+There's also a `--resample` option, which can be `nearest`, `bilinear` (the default), or `bicubic`. I recommend leaving it at `bilinear`, as `nearest` is low quality and `bicubic` can add white pixels to the borders of sprites. Of course, your results may differ.
 
 ## Limitations
 
-* In certain configurations of transformed and nested symbol instances, symbols may randomly change size. This is a bug in Animate's texture atlas export and can't be worked around.
-* Animate can support fully transparent masks because it has access to the underlying shape information. But, when such a mask is exported as a sprite image, there is no shape information—it's just a fully transparent image. So, we can't apply these kinds of masks.
+* In certain configurations of transformed and nested symbol instances, symbols may randomly be scaled in size. This is a bug in the texture atlas export itself, so it can't be worked around.
+* Animate can support fully transparent masks because it has access to the underlying shape information. But, when such a mask is exported as a sprite image, there's no shape information—it's just a fully transparent image. So, these kinds of masks will be skipped.
+* Transparent background colors cause aliasing and black pixel artifacts, so background colors are forced to be opaque.
 
 ## Legal
 
