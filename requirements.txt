@@ -1,9 +1,13 @@
 av==8.0.3
+# Use this instead if you don't want the FFmpeg build bundled with the binary wheel.
+# See: https://pyav.org/docs/stable/overview/about.html#bring-your-own-ffmpeg
+# av==8.0.3 --no-binary av
+
 numpy==1.20.3
 
 Pillow==8.2.0
-
 # Using this instead of Pillow may provide a small speed boost.
+# See: https://github.com/uploadcare/pillow-simd#installation
 # Pillow-SIMD==7.0.0.post3
 
 # Optional, ignore if you don't want a progress bar
