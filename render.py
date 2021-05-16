@@ -137,12 +137,8 @@ class ColorEffect:
     def parse(cls, effect):
         """Create a ColorEffect from a `C` dictionary."""
         mode = effect["M"]
-        # Alpha: multiply alpha by a constant
-        if mode == "CA":
-            multiplier = np.array([1, 1, 1, effect["AM"]])
-            offset = np.zeros(4)
         # Advanced: multiply and offset each channel
-        elif mode == "AD":
+        if mode == "AD":
             # Multipliers are in [-1, 1]
             multiplier = np.array(
                 [
@@ -161,15 +157,10 @@ class ColorEffect:
                     effect["AO"],
                 ]
             )
-        # Tint: linearly interpolate between the original color and a tint color
-        elif mode == "T":
-            tint_color = ImageColor.getrgb(effect["TC"])
-            tint_multiplier = effect["TM"]
-            # color * (1 - tint_multiplier) + tint_color * tint_multiplier
-            multiplier = np.array(
-                [1 - tint_multiplier, 1 - tint_multiplier, 1 - tint_multiplier, 1]
-            )
-            offset = tint_multiplier * np.array([*tint_color, 0])
+        # Alpha: multiply alpha by a constant
+        elif mode == "CA":
+            multiplier = np.array([1, 1, 1, effect["AM"]])
+            offset = np.zeros(4)
         # Brightness: linearly interpolate towards black or white
         elif mode == "CBRT":
             brightness = effect["BRT"]
@@ -185,6 +176,15 @@ class ColorEffect:
                     [1 - brightness, 1 - brightness, 1 - brightness, 1]
                 )
                 offset = brightness * np.array([255, 255, 255, 0])
+        # Tint: linearly interpolate between the original color and a tint color
+        elif mode == "T":
+            tint_color = ImageColor.getrgb(effect["TC"])
+            tint_multiplier = effect["TM"]
+            # color * (1 - tint_multiplier) + tint_color * tint_multiplier
+            multiplier = np.array(
+                [1 - tint_multiplier, 1 - tint_multiplier, 1 - tint_multiplier, 1]
+            )
+            offset = tint_multiplier * np.array([*tint_color, 0])
         else:
             warnings.warn(f"Unsupported color effect: {effect}")
             return cls()
