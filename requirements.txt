@@ -1,0 +1,10 @@
+av==8.0.3
+numpy==1.20.3
+
+Pillow==8.2.0
+
+# Using this instead of Pillow may provide a small speed boost.
+# Pillow-SIMD==7.0.0.post3
+
+# Optional, ignore if you don't want a progress bar
+tqdm==4.60.0
