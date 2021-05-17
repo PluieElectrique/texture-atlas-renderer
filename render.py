@@ -6,7 +6,7 @@ if __name__ == "__main__":
     import argparse
 
     parser = argparse.ArgumentParser(
-        description="Render Adobe Animate texture atlas animations"
+        description="Render Adobe Animate texture atlas animations."
     )
     parser.add_argument(
         "in_dir",
@@ -28,7 +28,7 @@ if __name__ == "__main__":
     parser.add_argument(
         "--background-color",
         default="#ccc",
-        help="Animation background color (default: %(default)s)",
+        help="Video background color (default: %(default)s)",
     )
     parser.add_argument(
         "--codec", default="h264", help="Video codec (default: %(default)s)"
