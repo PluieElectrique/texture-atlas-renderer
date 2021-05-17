@@ -32,6 +32,8 @@ python render.py --width 1280 --height 720 --background-color "#fff" --codec x26
 
 There's also a `--resample` option, which can be `nearest`, `bilinear` (the default), or `bicubic`. I recommend leaving it at `bilinear`, as `nearest` is low quality and `bicubic` can add white pixels to the borders of sprites. Of course, your results may differ.
 
+Finally, you can pass a symbol name with `--symbol` to render just that symbol. (By default, the whole animation is rendered.)
+
 ## Limitations
 
 * In certain configurations of transformed and nested symbol instances, symbols may randomly be scaled in size. This is a bug in the texture atlas export itself, so it can't be worked around.

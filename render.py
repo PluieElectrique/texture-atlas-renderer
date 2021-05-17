@@ -39,6 +39,10 @@ if __name__ == "__main__":
         choices=["nearest", "bilinear", "bicubic"],
         help="Resampling filter (default: %(default)s)",
     )
+    parser.add_argument(
+        "--symbol",
+        help="Render a specific symbol (default: the whole animation)",
+    )
 
     args = parser.parse_args()
 
@@ -645,7 +649,7 @@ class Animation:
                     if isinstance(e, tuple):
                         raise e[1].with_traceback(e[2])
 
-            q.put(self.symbols.render_symbol(None, frame_idx))
+            q.put(self.symbols.render_symbol(symbol_name, frame_idx))
 
         t.join()
 
@@ -663,7 +667,7 @@ if __name__ == "__main__":
         args.background_color,
         RESAMPLE_FILTERS[args.resample],
     )
-    animation.render(args.out_file, args.codec, args.width, args.height)
+    animation.render(args.out_file, args.codec, args.width, args.height, args.symbol)
 
 
 # Optimized Animation.json glossary
